@@ -1,5 +1,5 @@
 body {
-	background-image: url(images/wave_correction_3d_designed_background.jpg);
+	background-image: url(http://img203.imageshack.us/img203/7643/wavecorrection3ddesigne.jpg);
 	background-attachment: fixed;
 	background-position: center center;
 	margin: 0 0;
@@ -14,7 +14,7 @@ body {
 	margin: auto;
 	margin-top: 15px;
 	margin-bottom: 15px;
-	background-image: url(images/separator.png);
+	background-image: url(http://img801.imageshack.us/img801/6758/separatori.png);
 }
 
 iframe {
@@ -218,7 +218,7 @@ footer {
 	height: 500px;
 	margin: auto;
 	margin-bottom: 0px;
-	background-image: url(images/caution.jpg);
+	background-color: #fff;
 	-webkit-border-top-left-radius: 20px;
 	-webkit-border-top-right-radius: 20px;
 	-moz-border-radius-topleft: 20px;
