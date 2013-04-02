@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+    
+	<head>
+		<meta charset='UTF-8'>
+			
+			<title>Mathieu Tremblay 2.0</title>
+			<script>
+				function harlem() {
+					javascript:(function(){function c(){var e=document.createElement("link");e.setAttribute("type","text/css");e.setAttribute("rel","stylesheet");e.setAttribute("href",f);e.setAttribute("class",l);document.body.appendChild(e)}function h(){var e=document.getElementsByClassName(l);for(var t=0;t<e.length;t++){document.body.removeChild(e[t])}}function p(){var e=document.createElement("div");e.setAttribute("class",a);document.body.appendChild(e);setTimeout(function(){document.body.removeChild(e)},100)}function d(e){return{height:e.offsetHeight,width:e.offsetWidth}}function v(i){var s=d(i);return s.height>e&&s.height<n&&s.width>t&&s.width<r}function m(e){var t=e;var n=0;while(!!t){n+=t.offsetTop;t=t.offsetParent}return n}function g(){var e=document.documentElement;if(!!window.innerWidth){return window.innerHeight}else if(e&&!isNaN(e.clientHeight)){return e.clientHeight}return 0}function y(){if(window.pageYOffset){return window.pageYOffset}return Math.max(document.documentElement.scrollTop,document.body.scrollTop)}function E(e){var t=m(e);return t>=w&&t<=b+w}function S(){var e=document.createElement("audio");e.setAttribute("class",l);e.src=i;e.loop=false;e.addEventListener("canplay",function(){setTimeout(function(){x(k)},500);setTimeout(function(){N();p();for(var e=0;e<O.length;e++){T(O[e])}},15500)},true);e.addEventListener("ended",function(){N();h()},true);e.innerHTML=" <p>If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.</p> <p>";document.body.appendChild(e);e.play()}function x(e){e.className+=" "+s+" "+o}function T(e){e.className+=" "+s+" "+u[Math.floor(Math.random()*u.length)]}function N(){var e=document.getElementsByClassName(s);var t=new RegExp("\\b"+s+"\\b");for(var n=0;n<e.length;){e[n].className=e[n].className.replace(t,"")}}var e=30;var t=30;var n=350;var r=350;var i="//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.mp3";var s="mw-harlem_shake_me";var o="im_first";var u=["im_drunk","im_baked","im_trippin","im_blown"];var a="mw-strobe_light";var f="//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css";var l="mw_added_css";var b=g();var w=y();var C=document.getElementsByTagName("*");var k=null;for(var L=0;L<C.length;L++){var A=C[L];if(v(A)){if(E(A)){k=A;break}}}if(A===null){console.warn("Could not find a node of the right size. Please try a different page.");return}c();S();var O=[];for(var L=0;L<C.length;L++){var A=C[L];if(v(A)){O.push(A)}}})()
+				}
+				</script>
+			<script>
+				$(document).ready(function ($) {
+								  //					$("#poster-h1").lettering().animateLetters({opacity:0},{opacity:1},{randomOrder:true,time:1000,reset:true});
+								  $("#poster-h1").lettering().animateLetters({top:20,opacity:0},null,{randomOrder:false,time:500,reset:true});
+								  });
+				
+				</script>
+			<script>
+				/*global jQuery */
+				/*!
+				 * Lettering.JS 0.6.1
+				 *
+				 * Copyright 2010, Dave Rupert http://daverupert.com
+				 * Released under the WTFPL license
+				 * http://sam.zoy.org/wtfpl/
+				 *
+				 * Thanks to Paul Irish - http://paulirish.com - for the feedback.
+				 *
+				 * Date: Mon Sep 20 17:14:00 2010 -0600
+				 */
+				(function($){
+				 function injector(t, splitter, klass, after) {
+				 var a = t.text().split(splitter), inject = '';
+				 if (a.length) {
+				 $(a).each(function(i, item) {
+						   inject += '<span class="'+klass+(i+1)+'">'+item+'</span>'+after;
+						   });
+				 t.empty().append(inject);
+				 }
+				 }
+				 
+				 var methods = {
+				 init : function() {
+				 
+				 return this.each(function() {
+								  injector($(this), '', 'char', '');
+								  });
+				 
+				 },
+				 
+				 words : function() {
+				 
+				 return this.each(function() {
+								  injector($(this), ' ', 'word', ' ');
+								  });
+				 
+				 },
+				 
+				 lines : function() {
+				 
+				 return this.each(function() {
+								  var r = "eefec303079ad17405c889e092e105b0";
+								  // Because it's hard to split a <br/> tag consistently across browsers,
+								  // (*ahem* IE *ahem*), we replaces all <br/> instances with an md5 hash
+								  // (of the word "split").  If you're trying to use this plugin on that
+								  // md5 hash string, it will fail because you're being ridiculous.
+								  injector($(this).children("br").replaceWith(r).end(), r, 'line', '');
+								  });
+				 
+				 }
+				 };
+				 
+				 $.fn.lettering = function( method ) {
+				 // Method calling logic
+				 if ( method && methods[method] ) {
+				 return methods[ method ].apply( this, [].slice.call( arguments, 1 ));
+				 } else if ( method === 'letters' || ! method ) {
+				 return methods.init.apply( this, [].slice.call( arguments, 0 ) ); // always pass an array
+				 }
+				 $.error( 'Method ' +  method + ' does not exist on jQuery.lettering' );
+				 return this;
+				 };
+				 
+				 })(jQuery);
+				</script>
+			<script>
+				(function($)
+				 {
+				 /*
+				  * Author: Giulian Drimba
+				  * This plugin is used in conjunction with the lettering plugin to animate the individual letters
+				  *
+				  */
+				 
+				 $.fn.animateLetters = function(inAnimProperties,outAnimProperties, animConfig, completeCallback)
+				 {
+				 var scope = this;
+				 var letters = new Array();
+				 var numLettersAnimated = 0;
+				 var animConfig = animConfig;
+				 var introAnimProperties = inAnimProperties;
+				 var outroAnimProperties = outAnimProperties;
+				 var time = 1000;
+				 var randomOrder = false;
+				 var reset = false;
+				 var delay = 0;
+				 var onCompleteCallback = completeCallback;
+				 
+				 letters = $(this).find("span");
+				 
+				 if(animConfig && animConfig.time != undefined)
+				 {
+				 time = animConfig.time;
+				 }
+				 
+				 if(animConfig && animConfig.randomOrder)
+				 {
+				 randomOrder = animConfig.randomOrder;
+				 }
+				 
+				 if(animConfig && animConfig.reset)
+				 {
+				 reset = animConfig.reset;
+				 }
+				 
+				 if(introAnimProperties === undefined || introAnimProperties === null)
+				 {
+				 introAnimProperties = getDefaultProperties(outroAnimProperties);
+				 }
+				 
+				 if(outroAnimProperties === undefined || outroAnimProperties === null)
+				 {
+				 outroAnimProperties = getDefaultProperties(introAnimProperties);
+				 }
+				 
+				 letters.each(function()
+							  {
+							  $(this).css("position","relative");
+							  $(this).css(introAnimProperties);
+							  $(this).delay(delay).animate(outroAnimProperties,{complete:checkIfCompleted});
+							  
+							  if(randomOrder === true)
+							  {
+							  delay = Math.random() * time;
+							  delay -= time/letters.length;
+							  
+							  if(delay < 0)
+							  {
+							  delay = 0;
+							  }
+							  }
+							  else
+							  {
+							  if(time > 10)
+							  {
+							  delay += time/10;
+							  }
+							  }
+							  });
+				 
+				 function checkIfCompleted()
+				 {
+				 numLettersAnimated++;
+				 
+				 if(numLettersAnimated == letters.length)
+				 {
+				 if(reset)
+				 {
+				 resetLettering();
+				 }
+				 
+				 if(onCompleteCallback)
+				 {
+				 onCompleteCallback();
+				 }
+				 }
+				 }
+				 
+				 function getDefaultProperties(effectProperties)
+				 {
+				 var properties = {};
+				 
+				 for(propertyName in effectProperties)
+				 {
+				 var animProperty = propertyName.toString();
+				 
+				 properties[animProperty] = 0;
+				 
+				 if(propertyName === "opacity")
+				 {
+				 properties[animProperty] = 1;
+				 }
+				 
+				 }
+				 
+				 return properties;
+				 }
+				 
+				 function resetLettering()
+				 {
+				 var text = "";
+				 
+				 var letters = $(scope).find("span");
+				 
+				 for(var i = 0; i < letters.length; i++)
+				 {
+				 text += $(letters[i]).text();
+				 }
+				 
+				 $(scope).empty();
+				 $(scope).text(text);
+				 }
+				 }
+				 
+				 })(jQuery)
+				
+				</script>
+			<script>
+				/* Lettering.JS 0.6.1 by Dave Rupert  - http://daverupert.com */
+				(function($){function injector(t,splitter,klass,after){var a=t.text().split(splitter),inject='';if(a.length){$(a).each(function(i,item){inject+='<span class="'+klass+(i+1)+'">'+item+'</span>'+after});t.empty().append(inject)}}var methods={init:function(){return this.each(function(){injector($(this),'','char','')})},words:function(){return this.each(function(){injector($(this),' ','word',' ')})},lines:function(){return this.each(function(){var r="eefec303079ad17405c889e092e105b0";injector($(this).children("br").replaceWith(r).end(),r,'line','')})}};$.fn.lettering=function(method){if(method&&methods[method]){return methods[method].apply(this,[].slice.call(arguments,1))}else if(method==='letters'||!method){return methods.init.apply(this,[].slice.call(arguments,0))}$.error('Method '+method+' does not exist on jQuery.lettering');return this}})(jQuery);
+				</script>
+			<style>
+				html { background: black; }
+				html, body { overflow: hidden; }
+				::selection {
+					background-color: rgba(255, 0, 0, 0.6);
+				}
+				-moz-::selection {
+					background-color: rgba(255, 0, 0, 0.6);
+				}
+				-webkit-::selection {
+					background-color: rgba(255, 0, 0, 0.6);
+				}
+				#poster {
+					width: 890px;
+					margin: 30px auto;
+					font-family: "newcomen-1","newcomen-2";
+				}
+				h1 { box-shadow: 0 0 20px black; }
+				#poster h1 {
+					color: white;
+					background: url(http://img94.imageshack.us/img94/9393/9568l.jpg) 20px -150px no-repeat;
+					font-size: 100px;
+					line-height: 0.9;
+					text-align: center;
+					-webkit-background-clip: text;
+					background-clip: text;
+					-webkit-text-fill-color: transparent;
+					letter-spacing: -8px;
+					-webkit-transition: all 2.5s;
+					padding-bottom: 40px;
+				}
+				.step-one #poster h1 {
+					padding-top: 50px;
+				}
+				#poster h1 span {
+					-webkit-transition: all 2.5s;
+					-moz-transition: all 2.5s;
+					-o-transition: all 2.5s;
+				}
+				#poster h1 span.char1 { margin-left: -1450px; }
+				#poster h1 span.char2 { margin-left: 200px; }
+				#poster h1 span.char3 { margin-left: 200px; }
+				#poster h1 span.char5 { margin-left: 1450px; }
+				#poster h1 span.char6 { margin-left: 200px; }
+				#poster h1 span.char7 { margin-left: 200px; }
+				#poster h1 span.char8 { margin-left: 200px; }
+				#poster h1 span.char9 { margin-left: 200px; }
+				.step-one #poster h1 span { margin: 0; }
+				
+				#poster p { text-align: center; font-size: 15px; letter-spacing: 20px; color: #fff; }
+				#poster p span { position: relative; -webkit-transition: all 2.5s ease; color: white; }
+				.step-two #poster p span { top: 0 !important; left: 0 !important; }
+				span {
+					color: #fff;
+					padding-left: 20px;
+				}
+				a {
+					text-decoration: none;
+					text-underline: none;
+				}
+				#facebook {
+					color: #20f;
+					padding-left: 15px;
+				}
+				#youtube {
+					padding-left: 15px;
+					color: #f00;
+				}
+				#youtube span {
+					color: #fff;
+				}
+				#youtube span span {
+					color: #f00
+				}
+				#twitter {
+					color: #09f;
+					padding-left: 30px;
+				}
+				span[data-color="white"]{
+					color: #fff;
+				}
+				span.browser {
+					color: #fff;
+				}
+				#do-it {
+					margin-left: 15px;
+				}
+				td {
+					margin: 0px;
+					padding: 0px;
+				}
+				img[data-margin="a"] {
+					margin-top: 40px;
+				}
+				
+				#beta-version {
+					bottom: 0px;
+					float: left;
+					margin-left: 0px;
+					position: fixed;
+					color: #fff;
+				}
+				#time {
+					bottom: 20px;
+					float: right;
+					margin-right: 100%px;
+					position: fixed;
+					color: #fff;
+				}
+				</style>
+			
+			<script src="http://code.jquery.com/jquery-latest.js"></script>
+			
+			</head>
+	
+	<body>
+		
+		
+<!--[if !IE]><!-->		
+		</div>
+        <table>
+			<tbody>
+				<tr>
+					<td><div><input type="button" onClick="harlem()" value="Do The Harlem Shake!"></div></td>
+					<td><div><span>Recherche:</span> <input type="text" placeholder="Google" length="50"></div><</td>
+					<td><input type="button" value="Let's Go"></div>
+					<td><div><input type="button" value="Webmaster" onClick="parent.location'mailto:mathieu1177@hotmail.com?subject=webmaster-http://www.mathieu-tremblay.tumblr.com'"></div></td>
+					<td><div><a href="http://www.facebook.com/mathieutremblay029" id="facebook" target="_blank">Facebook</a></div></td>
+					<td><div><a href="http://www.twitter.com/mathieu025" id="twitter" target="_blank">Twitter</a></div></td>
+					<td><div><a href="http://www.youtube.com/MTSGproduction" id="youtube" target="_blank"><span data-color="white">You</span>Tube</a></div></td>
+					<td><span class="browser">Optimiser pour:</span> <img src="http://www.google.ca/images/icons/product/chrome-48.png" title="google chrome" /> <img height="48px" width="48px" src="http://2.bp.blogspot.com/_GaCDQSHqOIQ/TAVixrbk7qI/AAAAAAAAAIY/OAVn1eFrrDs/s1600/safari+logo+apple.gif" title="safari" /></td>
+				</tr>
+			</tbody>
+		</table>
+		<div id="do-it">
+			<table>
+				<tbody>
+					<tr>
+						<td>
+							<img src="http://img818.imageshack.us/img818/1999/fleche.gif" />
+						</td>
+						<td>
+							<img src="http://img607.imageshack.us/img607/7387/dothe.gif" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<img data-margin="a" src="http://img824.imageshack.us/img824/7671/harlemshake.gif" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+					
+		<div id="poster">
+				
+				<h1 id="poster-h1" class="fancy_title">Mathieu Tremblay</h1>
+				
+				
+				
+				<script>
+					$(document).ready(function() {
+									  $(".fancy_title").lettering();
+									  });
+					</script>
+				
+			</div>
+			
+			
+		
+		<div id="beta-version"><p>Version B&eacute;ta 1.0.013</p></div>
+		<div id="time"><p id="poster-p" class="fancy_title">Bientôt Disponible</p></div>
+<!--<![endif]-->
+		
+		<p>Vous avez rencontrez un probl&egrave;me.<p><input type="button" onClick="problem()">
+		<script>
+			function problem() {
+			document.write("<div><strong>IP:</strong> 70.82.191.28<br /><strong>Host:</strong> modemcable028.191-82-70.mc.videotron.ca<br /><strong>OS:</strong><img src=\"http://services.supportduweb.com/iphost/images/icon_macos.png\" alt=\"Mac OS X\" />Mac OS X<br /><strong>Navigateur:</strong><img src=\"http://services.supportduweb.com/iphost/images/icon_safari.png\" alt=\"Safari\" />Safari<br /><strong>User Agent:</strong>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/536.28.10 (KHTML, like Gecko) Version/6.0.3 Safari/536.28.10<br /></div>");
+			}
+		</script>
+		<p>La version B&eacute;ta du site n'est pas compatible avec ce navigateur.</p>'
+			</body>
+	
+</html>
